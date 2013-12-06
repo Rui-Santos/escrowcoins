@@ -1,0 +1,3 @@
+django-admin-bootstrapped
+South
+django-userena
