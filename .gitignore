@@ -2,5 +2,5 @@
 *.db
 *.DS_Store
 *.py[cod]
-*wsgi.py
+wsgi.py
 local_settings.py
