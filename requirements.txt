@@ -1,3 +1,5 @@
-django-admin-bootstrapped
+django-bootstrap3
 South
 django-userena
+django-guardian
+django-mailgun

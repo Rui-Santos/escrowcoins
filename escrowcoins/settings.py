@@ -1,13 +1,20 @@
 # Django settings for escrowcoins project.
+import os
+import django.conf.global_settings as DEFAULT_SETTINGS
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+APP_NAME ='Escrowcoins'
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
+
+BASE_URL = ''
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__),os.pardir))+'/'
 
 DATABASES = {
     'default': {
@@ -69,6 +76,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    BASE_DIR+'static',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -108,6 +116,8 @@ ROOT_URLCONF = 'escrowcoins.urls'
 WSGI_APPLICATION = 'escrowcoins.wsgi.application'
 
 TEMPLATE_DIRS = (
+    BASE_DIR+'templates',
+    # os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/')
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -120,8 +130,13 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
+    'bootstrap3',
+    'south',
+    'userena',
+    'guardian',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
@@ -157,9 +172,31 @@ LOGGING = {
     }
 }
 
+# For Auth
+AUTHENTICATION_BACKENDS = (
+    'userena.backends.UserenaAuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+
+
+
+# Custom template processors
+TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
+    "escrowcoins.context_processors.global_vars",
+    'django.core.context_processors.request',
+)
 
 # Localhost settings
 try:
     from local_settings import *
 except ImportError:
     pass
+
+# userena
+ANONYMOUS_USER_ID = -1
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+LOGIN_REDIRECT_URL = USERENA_SIGNIN_REDIRECT_URL= BASE_URL+'accounts/%(username)s/'
+LOGIN_URL = BASE_URL+'/accounts/signin/'
+LOGOUT_URL = BASE_URL+'/accounts/signout/'
