@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'webescrow',
     'bootstrap3',
     'south',
     'userena',
@@ -189,15 +190,33 @@ TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
 )
 
+
+
+#Escrow app settings
+SSL_CONF = None
+# Configure the following according to where ssss is installed.
+# ssss_split = os.path.abspath(os.path.join("ssss-0.5", "ssss-split"))
+SSSS_SPLIT = '/usr/bin/ssss-split'
+# GPG command path
+GPG = '/usr/local/bin/gpg'
+# ZMQ socket path for pushing/pulling data regarding emails to be sent.
+# For more configurations about this, check send_email.py
+ZMQEMAIL = 'ipc:///tmp/zmqemail_escrow'
+
+
+
 # Localhost settings
 try:
     from local_settings import *
 except ImportError:
     pass
 
+
+MAILGUN_ACCESS_KEY = 'key-159a0akhdauw79rtshe1rw-itl6t-0i6'
 # userena
 ANONYMOUS_USER_ID = -1
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
-LOGIN_REDIRECT_URL = USERENA_SIGNIN_REDIRECT_URL= BASE_URL+'accounts/%(username)s/'
+#LOGIN_REDIRECT_URL = USERENA_SIGNIN_REDIRECT_URL= BASE_URL+'accounts/%(username)s/'
+LOGIN_REDIRECT_URL = USERENA_SIGNIN_REDIRECT_URL= BASE_URL
 LOGIN_URL = BASE_URL+'/accounts/signin/'
 LOGOUT_URL = BASE_URL+'/accounts/signout/'

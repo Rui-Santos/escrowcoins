@@ -1,16 +1,20 @@
 """
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
+accounts Tests
+run with "manage.py test".
 """
 
 from django.test import TestCase
+from rest_framework import status
+from rest_framework.test import APITestCase
+from django.core.urlresolvers import reverse
+from userena.tests.profiles.test import ProfileTestCase
+from userena.models import UserenaSignup
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class Auth(APITestCase):
+
+    """Userena Authentication tests"""
+
+    def test_permisions(slef):
+         # Setup userena permissions
+        UserenaSignup.objects.check_permissions()

@@ -1,24 +1,51 @@
 # Create your views here.
 from django.template import Template, context, RequestContext
 from django.shortcuts import render_to_response
-
-
+import webescrow.escrowhandler as escrowhandler
+import settings as settings
+import os
+from webescrow.forms import TransactionForm
 
 def render_view(request,template,data):
-	return render_to_response(
+    '''
+    wrapper for rendering views , loads RequestContext
+    @request  request object
+    @template  string
+    @data  tumple
+    '''
+    return render_to_response(
         template,data,
         context_instance=RequestContext(request)
-    )
+        )
 
 def landingpage(request):
-    #if request.user.is_authenticated():
-    #    return HttpResponseRedirect(settings.BASE_URL+"home")
-    #return render(request,'index.html')
+    '''
+    handles the index page , loads homepage when user is logged in
+    @request  request object
+    '''
+    if request.user.is_authenticated():
+        return homepage(request)
     return render_view(request,'index.html',{})
+
+def homepage(request):
+    '''
+    serves the escrow app , when the user is logged in
+    @request  request object
+    '''
+    errors=''
+    if not os.path.exists(settings.SSSS_SPLIT):
+        raise Exception("%s doesn't exist, check settings.py" % settings.SSSS_SPLIT)
+    if request.method == "POST":
+        form = TransactionForm(request.POST)   
+        if form.is_valid():
+            escrowhandler.post_handler(request.POST);
+        else:
+            errors = form.errors
+    return render_view(request,'home.html',{'TransactionForm':TransactionForm,'escroweremail':'escrower@email.com','errors':errors})
 
 
 def testingpage(request):
 	from django.core.mail import send_mail
-	send_mail('Testing Email', 'Here is the message.', 'madradavid@yahoo.com',['madradavid@yahoo.com'], fail_silently=False)
+	send_mail('Testing Email', 'Here is the message.', 'madradavid@gmail.com',['madradavid@gmail.com'], fail_silently=False)
 	return render_view(request,'test.html',{})
 
