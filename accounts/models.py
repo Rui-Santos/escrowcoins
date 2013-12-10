@@ -10,6 +10,4 @@ class UserProfile(UserenaBaseProfile):
     user = models.OneToOneField(User,
                                 unique=True,
                                 verbose_name=_('user'),
-                                related_name='my_profile')
-    favourite_snack = models.CharField(_('favourite snack'),
-                                       max_length=5)
+                                related_name='userprofile')
