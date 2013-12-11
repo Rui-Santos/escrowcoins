@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'south',
     'userena',
+    'easy_thumbnails',
     'guardian',
     # Uncomment the next line to enable the admin:
     'suit',
@@ -198,6 +199,7 @@ SSL_CONF = None
 # Configure the following according to where ssss is installed.
 # ssss_split = os.path.abspath(os.path.join("ssss-0.5", "ssss-split"))
 SSSS_SPLIT = '/usr/bin/ssss-split'
+SSSS_COMBINE = '/usr/bin/ssss-combine'
 # GPG command path
 GPG = '/usr/bin/gpg'
 # ZMQ socket path for pushing/pulling data regarding emails to be sent.
@@ -205,8 +207,16 @@ GPG = '/usr/bin/gpg'
 ZMQ = 'ipc:///tmp/zmqemail_escrow'
 
 
-MAILGUN_ACCESS_KEY = ''
-MAILGUN_ACCESS_LINK = ''
+
+EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+
+
+#using sandbox account here , change later
+MAILGUN_ACCESS_KEY = 'key-2muxr74n4l3gzhcsm243u2ubts9a88b8'
+MAILGUN_SERVER_NAME = 'sandbox6107.mailgun.org'
+MAILGUN_ACCESS_LINK = 'https://api.mailgun.net/v2/sandbox6107.mailgun.org/messages'
+
+
 ESCROW_SENDER = "escrowcoins@escrowcoins.com"
 ESCROWER_EMAIL = "madradavid@gmail.com"
 ESCROW_SUBJECT = "Bitcoin N-M escrow"

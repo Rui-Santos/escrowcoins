@@ -4,16 +4,12 @@ from datetime import datetime
 from django.contrib.auth.models import User
 
 
-# User model
-class User(models.Model): 
-    user = models.OneToOneField(User)
-
-
+# Transaction Model
 class Transaction(models.Model):
 	'''
 	Transaction Model
 	'''
-	user = models.ForeignKey('User')
+	user = models.ForeignKey(User)
 	sender = models.EmailField(max_length=70,blank=False)
 	buyer = models.EmailField(max_length=70,blank=False)
 	escrower = models.EmailField(max_length=70,blank=False)

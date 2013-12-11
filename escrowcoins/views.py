@@ -32,7 +32,7 @@ def homepage(request):
     serves the escrow app , when the user is logged in
     @request  request object
     '''
-    errors, result =('',False)
+    errors, result =(' ',False)
     if not os.path.exists(settings.SSSS_SPLIT):
         raise Exception("%s doesn't exist, check settings.py" % settings.SSSS_SPLIT)
     if request.method == "POST":

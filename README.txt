@@ -17,7 +17,6 @@ and a SMTP server properly configured.
 
 Setup
 =====
-
-Adjust `webcfg.py` and `send_email.py` to match your local
+Add `local_settings.py` to hold your local
 configurations. Make sure the program `ssss-split` is found at
-the place specified by `ssss_split` at `webcfg.py`.
+the place specified by `ssss_split` at `settings.py`.

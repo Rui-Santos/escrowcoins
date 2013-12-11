@@ -8,8 +8,8 @@ from OpenSSL import rand
 
 BASE58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 NETWORK_ID = '\x00' # Main Network
-ADDR_PREFIX = '1' # Bitcoin pubkey.
-
+#ADDR_PREFIX = '1' # Bitcoin pubkey.
+ADDR_PREFIX = '3'
 MAX_KEY = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141
 
 def privatekey():

@@ -26,9 +26,7 @@ def post_handler(data):
             using_gpg = True
             _, failed = gpg.encrypt('test', recipient)
             if failed:
-                reply = {'error': 'Failed to obtain public for key %s' %
-                        recipient}
-                result.error = json.dumps(reply)
+                result['error'] =  'Failed to obtain public for key %s' %recipient
                 return
         if using_gpg:
             gpg_note = ('If GPG fails for whatever reason, one or more emails '
@@ -46,6 +44,5 @@ def post_handler(data):
             response = mailer.processMail([note, share, addr,
                 email[0], email[1], str(int(email[2]))]
                 )
-        result += {'result':response}
-        print result
+        result['result']=response
         return result
