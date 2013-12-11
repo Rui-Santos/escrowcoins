@@ -32,7 +32,7 @@ def homepage(request):
     serves the escrow app , when the user is logged in
     @request  request object
     '''
-    errors=''
+    errors, result =('',False)
     if not os.path.exists(settings.SSSS_SPLIT):
         raise Exception("%s doesn't exist, check settings.py" % settings.SSSS_SPLIT)
     if request.method == "POST":
@@ -41,11 +41,16 @@ def homepage(request):
             escrowhandler.post_handler(request.POST);
         else:
             errors = form.errors
-    return render_view(request,'home.html',{'TransactionForm':TransactionForm,'escroweremail':'escrower@email.com','errors':errors})
+    return render_view(request,'home.html',{'TransactionForm':TransactionForm,
+        'escroweremail':settings.ESCROWER_EMAIL,
+        'errors':errors}
+        )
 
 
 def testingpage(request):
 	from django.core.mail import send_mail
-	send_mail('Testing Email', 'Here is the message.', 'madradavid@gmail.com',['madradavid@gmail.com'], fail_silently=False)
+	send_mail('Testing Email', 'Here is the message.',
+     'madradavid@gmail.com',['madradavid@gmail.com'], fail_silently=False
+     )
 	return render_view(request,'test.html',{})
 

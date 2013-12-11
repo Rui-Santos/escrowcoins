@@ -1,24 +1,26 @@
 import os
-import zmq
 import json
 import gpg
 import ssss
-import webcfg
 import bitcoin
-from django.core.mail import EmailMessage
-from escrowcoins.utils import *
-import escrowcoins.settings as settings
+import mailer
 
 
 def post_handler(data):
-    emails = (data['sender'], data['buyer'], data['escrower'])
+    '''
+    returns a json response with error messages etc
+    '''
+    emails = (['Escrower',data['escrower'], False],
+        ['Buyer',data['buyer'], False],
+        ['Seller',data['sender'], False]
+        )
     note = data.get('note', u'').encode('utf8')
-    result = False
+    result = {}
     if len(emails) == 3:
        # Test GPG.
         using_gpg = False
         for item in emails:
-            recipient, use_gpg = item[1], 0
+            recipient, use_gpg = item[1], item[2]
             if not use_gpg:
                 continue
             using_gpg = True
@@ -26,23 +28,24 @@ def post_handler(data):
             if failed:
                 reply = {'error': 'Failed to obtain public for key %s' %
                         recipient}
-                request.write(json.dumps(reply))
+                result.error = json.dumps(reply)
                 return
         if using_gpg:
             gpg_note = ('If GPG fails for whatever reason, one or more emails '
                     'will be sent in plain text.')
         else:
             gpg_note = ''
-
         # Generate a new private key, and a bitcoin address from it.
         pk, wif_pk = bitcoin.privatekey()
         addr = bitcoin.address(pk)
         # Split the private key in m parts.
         shares = ssss.split(wif_pk, 2, 3)
-        # Send the shares by email.
-        sender = settings.ESCROW_SENDER
-        subject= settings.ESCROW_SUBJECT
+        # Send the shares by email
         for share, email in zip(shares, emails):
             message = "%s" %share
-            result = send_simple_message(email,sender,message,subject)
+            response = mailer.processMail([note, share, addr,
+                email[0], email[1], str(int(email[2]))]
+                )
+        result += {'result':response}
+        print result
         return result

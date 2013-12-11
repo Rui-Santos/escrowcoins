@@ -6,6 +6,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 LOCALHOST = False
 APP_NAME ='Escrowcoins'
+SERVER_HOST = 'localhost'
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -198,16 +199,17 @@ SSL_CONF = None
 # ssss_split = os.path.abspath(os.path.join("ssss-0.5", "ssss-split"))
 SSSS_SPLIT = '/usr/bin/ssss-split'
 # GPG command path
-GPG = '/usr/local/bin/gpg'
+GPG = '/usr/bin/gpg'
 # ZMQ socket path for pushing/pulling data regarding emails to be sent.
 # For more configurations about this, check send_email.py
-ZMQEMAIL = 'ipc:///tmp/zmqemail_escrow'
+ZMQ = 'ipc:///tmp/zmqemail_escrow'
 
 
 MAILGUN_ACCESS_KEY = ''
 MAILGUN_ACCESS_LINK = ''
 ESCROW_SENDER = "escrowcoins@escrowcoins.com"
-ESCROW_SUBJECT = "Escrow Coins"
+ESCROWER_EMAIL = "madradavid@gmail.com"
+ESCROW_SUBJECT = "Bitcoin N-M escrow"
 
 # Localhost settings
 try:

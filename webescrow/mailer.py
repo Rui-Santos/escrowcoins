@@ -1,15 +1,20 @@
+'''
+Escrow Mailer template
+'''
 import zmq
 import smtplib
 
 import gpg
-import webcfg
+
+from escrowcoins.utils import *
+import escrowcoins.settings as settings
 
 # Configure the following according to your preference and server.
-SERVER = 'localhost'
-FROM = "<escrow@ggdice.com>"
-SUBJECT = 'Bitcoin N-M escrow'
+SERVER = settings.SERVER_HOST
+FROM = "<"+settings.ESCROW_SENDER+">"
+SUBJECT = settings.ESCROW_SUBJECT
+PATH = settings.BASE_URL
 
-PATH = 'https://dice.gg/webescrow_nm'
 
 TEMPLATE_BASE = """You are receiving this message because someone started a bitcoin escrow
 at %(fromwhere)s and indicated you to represent %(part)s
@@ -64,6 +69,9 @@ Your key:
 
 Do not share this key with anyone else."""}
 
+
+
+
 def send(email, note, body):
     subject = SUBJECT
     if note:
@@ -78,18 +86,13 @@ Subject: %s
 
 %s%s
 """ % (FROM, email, subject, body, footer)
-    server = smtplib.SMTP(SERVER)
-    server.sendmail(FROM, [email], message)
-    server.quit()
+    #server = smtplib.SMTP(SERVER)
+    #server.sendmail(FROM, [email], message)
+    #server.quit()
+    return send_simple_message(email,FROM,message,SUBJECT)  
 
-def main():
-    ctx = zmq.Context.instance()
-    sock = ctx.socket(zmq.PULL)
-    sock.bind(webcfg.zmqemail)
-
-    while True:
-        print "Waiting for work"
-        note, share, addr, part, email, use_gpg = sock.recv_multipart()
+def processMail(data):
+        note, share, addr, part, email, use_gpg = data 
         print "Got work, sending to email %s" % email
         if part.lower() == 'escrower':
             body = TEMPLATE_ESCROWER % (addr, share)
@@ -118,7 +121,4 @@ Your key:
             else:
                 body = body_new
 
-        send(email, note, body)
-
-if __name__ == "__main__":
-    main()
+        return send(email, note, body)
