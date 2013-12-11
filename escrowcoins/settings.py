@@ -204,6 +204,10 @@ GPG = '/usr/local/bin/gpg'
 ZMQEMAIL = 'ipc:///tmp/zmqemail_escrow'
 
 
+MAILGUN_ACCESS_KEY = ''
+MAILGUN_ACCESS_LINK = ''
+ESCROW_SENDER = "escrowcoins@escrowcoins.com"
+ESCROW_SUBJECT = "Escrow Coins"
 
 # Localhost settings
 try:
@@ -211,8 +215,6 @@ try:
 except ImportError:
     pass
 
-
-MAILGUN_ACCESS_KEY = 'key-159a0akhdauw79rtshe1rw-itl6t-0i6'
 # userena
 ANONYMOUS_USER_ID = -1
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'

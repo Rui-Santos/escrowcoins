@@ -6,6 +6,8 @@ import ssss
 import webcfg
 import bitcoin
 from django.core.mail import EmailMessage
+from escrowcoins.utils import *
+import escrowcoins.settings as settings
 
 
 def post_handler(data):
@@ -36,14 +38,11 @@ def post_handler(data):
         pk, wif_pk = bitcoin.privatekey()
         addr = bitcoin.address(pk)
         # Split the private key in m parts.
-        shares = ssss.split(wif_pk, 3, 3)
+        shares = ssss.split(wif_pk, 2, 3)
         # Send the shares by email.
+        sender = settings.ESCROW_SENDER
+        subject= settings.ESCROW_SUBJECT
         for share, email in zip(shares, emails):
-            print email
-            print share
-            print addr
-            print note
-            print '+++++++++'
-            #request.sock.send_multipart([note, share, addr,
-            #    email[0], email[1], str(int(email[2]))])
+            message = "%s" %share
+            result = send_simple_message(email,sender,message,subject)
         return result
