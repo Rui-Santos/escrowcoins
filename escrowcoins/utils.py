@@ -16,4 +16,4 @@ def send_simple_message(to,sender,message,subject):
               "to": to,
               "subject": subject,
               "text": message})
-    return response
+    return response.status_code

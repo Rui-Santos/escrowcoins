@@ -46,11 +46,3 @@ def homepage(request):
         'errors':errors}
         )
 
-
-def testingpage(request):
-	from django.core.mail import send_mail
-	send_mail('Testing Email', 'Here is the message.',
-     'madradavid@gmail.com',['madradavid@gmail.com'], fail_silently=False
-     )
-	return render_view(request,'test.html',{})
-

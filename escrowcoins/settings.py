@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'escrowcoins',
     'accounts',
     'webescrow',
     'bootstrap3',
@@ -141,6 +142,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'suit',
     'django.contrib.admin',
+    'coverage',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

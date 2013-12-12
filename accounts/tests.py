@@ -15,6 +15,6 @@ class Auth(APITestCase):
 
     """Userena Authentication tests"""
 
-    def test_permisions(slef):
+    def test_email_data(self):
          # Setup userena permissions
         UserenaSignup.objects.check_permissions()

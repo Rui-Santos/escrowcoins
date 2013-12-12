@@ -44,5 +44,5 @@ def post_handler(data):
             response = mailer.processMail([note, share, addr,
                 email[0], email[1], str(int(email[2]))]
                 )
-        result['result']=response
+        result['result'] = response
         return result
