@@ -1,7 +1,6 @@
 '''
 Escrow Mailer template
 '''
-import zmq
 import smtplib
 
 import gpg

@@ -22,7 +22,7 @@ def landingpage(request):
     '''
     handles the index page , loads homepage when user is logged in
     @request  request object
-    '''
+    '''	
     if request.user.is_authenticated():
         return homepage(request)
     return render_view(request,'index.html',{})
