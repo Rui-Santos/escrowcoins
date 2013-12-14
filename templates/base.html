@@ -50,10 +50,22 @@
         </li>
       </ul>
       -->
-      <ul class="nav navbar-nav navbar-right">
       {% if LOGGED_IN %}
-      <li>
-          <a href="{{BASE_URL}}accounts/{{request.user.username}}">{{ request.user.username }}</a>
+
+        <ul class="nav navbar-nav navbar-left" style="margin-left:40px;">
+      
+      <li class="active" >
+          <a href="{{BASE_URL}}">Start Escrow Now</a>
+        </li>
+        </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+    
+           <li>
+          <a href="{{BASE_URL}}/transactions">My Transactions</a>
+        </li>
+           <li>
+          <a href="{{BASE_URL}}accounts/{{request.user.username}}">Account</a>
         </li>
         <li>
           <a href="{{BASE_URL}}accounts/signout">Signout</a>
@@ -65,8 +77,10 @@
          <li>
           <a href="{{BASE_URL}}accounts/signup">Signup</a>
         </li>
-        {% endif %}
+        
       </ul>
+      {% endif %}
+
     </nav>
   </div>
 </header>

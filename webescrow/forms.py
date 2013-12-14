@@ -7,4 +7,4 @@ class TransactionForm(ModelForm):
 
 	class Meta:
 		model = Transaction
-		fields = ['sender','buyer','escrower']
+		#fields = ['sender','buyer','escrower']

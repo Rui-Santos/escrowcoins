@@ -4,9 +4,12 @@ from django.conf import settings
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
+#custom forms
+from accounts import forms
 
 urlpatterns = patterns('',
                       url(r'^$',landingpage),
+                      #(r'^accounts/signup/$','userena.views.signup',{'signup_form':forms.SignupFormExtra}),
                       (r'^accounts/', include('userena.urls')),
                        # Examples:
                        # url(r'^$', 'escrowcoins.views.home', name='home'),
@@ -19,6 +22,11 @@ urlpatterns = patterns('',
 
                        # Uncomment the next line to enable the admin:
                        url(r'^admin/', include(admin.site.urls)),
-                       (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT, 'show_indexes':True}),
-                      (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes':True}),
+                       (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+                        {'document_root': settings.STATIC_ROOT, 'show_indexes':True}
+                        ),
+                       (r'^media/(?P<path>.*)$', 'django.views.static.serve', 
+                        {'document_root': settings.MEDIA_ROOT, 
+                        'show_indexes':True}
+                        ),
                        )
