@@ -5,11 +5,9 @@ Requirements
 ============
 
 Python 2.7 (http://python.org),
-ZMQ (http://zeromq.org/),
-pyzmq (https://github.com/zeromq/pyzmq),
 python-ecdsa (https://github.com/warner/python-ecdsa)
 ssss (http://point-at-infinity.org/ssss/),
-tornado (http://www.tornadoweb.org/),
+Django (https://www.djangoproject.com/),
 OpenSSL (https://www.openssl.org/),
 pyOpenSSL (https://launchpad.net/pyopenssl),
 GPG (http://gnupg.org/),

@@ -5,6 +5,8 @@ import webescrow.escrowhandler as escrowhandler
 import settings as settings
 import os
 from webescrow.forms import TransactionForm
+from webescrow.models import *
+from datetime import datetime
 
 def render_view(request,template,data):
     '''
@@ -36,9 +38,15 @@ def homepage(request):
     if not os.path.exists(settings.SSSS_SPLIT):
         raise Exception("%s doesn't exist, check settings.py" % settings.SSSS_SPLIT)
     if request.method == "POST":
-        form = TransactionForm(request.POST)   
+        post_values = request.POST.copy()
+        post_values['user'] = request.user.pk
+        post_values['added'] = datetime.now().date()
+        print datetime.now().date()
+        form = TransactionForm(post_values)   
         if form.is_valid():
-            escrowhandler.post_handler(request.POST);
+            transaction = form.save()
+            print transaction 
+            #escrowhandler.post_handler(request.POST);
         else:
             errors = form.errors
     return render_view(request,'home.html',{'TransactionForm':TransactionForm,
@@ -46,3 +54,14 @@ def homepage(request):
         'errors':errors}
         )
 
+
+def listtransactions(request):
+    '''
+    List transactions
+    '''
+    if not request.user.is_authenticated:
+        return HttpResponseNotFound('<h1>No Page Here</h1>')
+    transactions = Transaction.objects.all().filter(user=request.user.pk)
+    print transactions
+    return render_view(request,'transactions.html',{'transactions':transactions}
+        )

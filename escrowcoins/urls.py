@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from escrowcoins.views import landingpage
+from escrowcoins.views import landingpage, listtransactions
 from django.conf import settings
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -9,6 +9,7 @@ from accounts import forms
 
 urlpatterns = patterns('',
                       url(r'^$',landingpage),
+                      url(r'^transactions$',listtransactions),
                       #(r'^accounts/signup/$','userena.views.signup',{'signup_form':forms.SignupFormExtra}),
                       (r'^accounts/', include('userena.urls')),
                        # Examples:

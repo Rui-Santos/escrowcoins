@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<div class="transactions">
+
+<table class="table">
+              <thead>
+                <tr>
+                  <th>#Invoice</th>
+                  <th>My Role</th>
+                  <th>Buyer Email</th>
+                  <th>Seller Email</th>
+                  <th>Amount</th>
+                  <th>Description</th>
+                  <th>Document Required</th>
+                </tr>
+              </thead>
+              <tbody>
+                   {% for t in transactions %}
+                  <tr>
+                  <td>{{t.get_invoice_number}}</td>
+                  <td>
+                  {%if t.is_sender%}
+                  Sender
+                  {% else %}
+                  Buyer
+                  {%endif%}
+                  </td>
+                  <td>{{t.buyer}}</td>
+                  <td>{{t.sender}}</td>
+                  <td>{{t.amount}}</td>
+                  <td>{{t.condition_description}}</td>
+                  <td>
+                  {%if t.condition_document%}
+                  Yes
+                  {% else %}
+                  No
+                  {%endif%}
+                  </td>
+                </tr>
+
+                    {% endfor %}
+
+
+
+              </tbody>
+            </table>
+  </div>
+
+
+{% endblock %}

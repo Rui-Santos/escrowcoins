@@ -15,9 +15,10 @@ class Transaction(models.Model):
 	sender = models.EmailField(max_length=70,blank=False)
 	buyer = models.EmailField(max_length=70,blank=False)
 	escrower = models.EmailField(max_length=70,blank=False)
-	added = models.DateTimeField(default=datetime.now, blank=True)
+	added = models.DateTimeField(default=datetime.now)
 	is_sender = models.BooleanField(default=True)
-	amount = models.DecimalField(blank=False)
+	#amount = models.DecimalField(blank=False)
+	amount = models.IntegerField(blank=False)
 	helptext = models.TextField()
 	condition_description = models.TextField()
 	condition_document =  models.BooleanField(default=False)
@@ -27,7 +28,9 @@ class Transaction(models.Model):
 		'''
 		invoice number
 		'''
-		return('transaction', [str(self.id^0xABCDEFAB)])
+		invoice = str(self.pk^0xABCDEFAB)
+		print invoice
+		return invoice
 
 
 	@models.permalink
@@ -35,7 +38,7 @@ class Transaction(models.Model):
 		'''
 		direct link to transaction
 		'''
-		return('transaction', [str(self.id^0xABCDEFAB)])
+		return('transaction', [str(self.pk^0xABCDEFAB)])
 
 
 #for storing money
