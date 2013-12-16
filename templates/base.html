@@ -31,25 +31,6 @@
       <a href="{{BASE_URL}}" class="navbar-brand">{{APP_NAME}}</a>
     </div>
     <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-      <!--
-      <ul class="nav navbar-nav">
-        <li>
-          <a href="../getting-started">Getting started</a>
-        </li>
-        <li>
-          <a href="../css">CSS</a>
-        </li>
-        <li class="active">
-          <a href="../components">Components</a>
-        </li>
-        <li>
-          <a href="../javascript">JavaScript</a>
-        </li>
-        <li>
-          <a href="../customize">Customize</a>
-        </li>
-      </ul>
-      -->
       {% if LOGGED_IN %}
 
         <ul class="nav navbar-nav navbar-left" style="margin-left:40px;">
@@ -62,7 +43,7 @@
       <ul class="nav navbar-nav navbar-right">
     
            <li>
-          <a href="{{BASE_URL}}/transactions">My Transactions</a>
+          <a href="{{BASE_URL}}transactions">My Transactions</a>
         </li>
            <li>
           <a href="{{BASE_URL}}accounts/{{request.user.username}}">Account</a>
@@ -70,7 +51,9 @@
         <li>
           <a href="{{BASE_URL}}accounts/signout">Signout</a>
         </li>
+        </ul>
         {% else %}
+         <ul class="nav navbar-nav navbar-right">
         <li>
           <a href="{{BASE_URL}}accounts/signin">Login</a>
         </li>
@@ -86,6 +69,24 @@
 </header>
 
 <div class="container landingpage_wrapper">
+
+<!--notifications-->
+{%if notification.success%}
+<div class="alert alert-success notification" >
+<button type="button" class="close" data-dismiss="alert">×</button>
+{{notification.message}}
+</div>
+{%endif%}
+
+
+{%if notification.error%}
+<div class="alert alert alert-error notification" >
+<button type="button" class="close" data-dismiss="alert">×</button>
+{{notification.message}}
+</div>
+{%endif%}
+
+
 {% block content %}
 
 
