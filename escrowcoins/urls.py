@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from escrowcoins.views import landingpage, listtransactions
+from escrowcoins.views import landing_page, list_transactions, list_transaction, add_complaint
 from django.conf import settings
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -8,8 +8,10 @@ admin.autodiscover()
 from accounts import forms
 
 urlpatterns = patterns('',
-                      url(r'^$',landingpage),
-                      url(r'^transactions$',listtransactions),
+                      url(r'^$',landing_page),
+                      url(r'^transactions$',list_transactions),
+                      url(r'^transaction/(\w+)/$', list_transaction, name='transaction'),
+                      url(r'^complaint$',add_complaint),
                       #(r'^accounts/signup/$','userena.views.signup',{'signup_form':forms.SignupFormExtra}),
                       (r'^accounts/', include('userena.urls')),
                        # Examples:

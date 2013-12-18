@@ -20,6 +20,7 @@ at %(fromwhere)s and indicated you to represent %(part)s
 in the process.
 %(msg)s
 """
+
 TEMPLATE_BUYER = TEMPLATE_BASE % {'part': 'the buyer',
         'fromwhere': PATH, 'msg': """
 To complete your part in the process, send the amount previously
@@ -33,6 +34,9 @@ in order to give access to the amount paid:
 Do not share this key with anyone else except with the buyer after he
 has done his part (i.e. sent you some product, or any other agreement you had).
 """}
+
+
+
 TEMPLATE_SELLER = TEMPLATE_BASE % {'part': 'the seller',
         'fromwhere': PATH, 'msg': """
 The address %s was generated
@@ -90,7 +94,27 @@ Subject: %s
     #server.quit()
     return send_simple_message(email,FROM,message,SUBJECT)  
 
-def processMail(data):
+
+
+def agreeTerms(email,role,escrow_link):
+    '''
+    Email for Buyer or Seller To Agree to terms
+    '''
+    body = TEMPLATE_BASE % {'part': part,
+                'fromwhere': escrow_link, 'msg': """
+
+The user %s indicated that you are a %s
+
+For this Escrow to be Started you need to agree to the terms indicated here %s
+
+""" % (email, role, escrow_link)}
+
+
+def sharesMail(data):
+        '''
+        Create Bitcoin Address and Shares
+        Send Email 
+        '''
         note, share, addr, part, email, use_gpg = data 
         print "Got work, sending to email %s" % email
         if part.lower() == 'escrower':

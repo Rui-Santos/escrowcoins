@@ -4,15 +4,17 @@ import gpg
 import ssss
 import bitcoin
 import mailer
+from django.contrib import messages
 
 
-def post_handler(data):
+
+def post_handler(data, request):
     '''
     returns a json response with error messages etc
     '''
-    emails = (['Escrower',data['escrower'], False],
-        ['Buyer',data['buyer'], False],
-        ['Seller',data['sender'], False]
+    emails = (['Escrower',data['escrower'],data['encypt_emails']],
+        ['Buyer',data['buyer'], data['encypt_emails']],
+        ['Seller',data['sender'],data['encypt_emails']]
         )
     note = data.get('note', u'').encode('utf8')
     result = {}
@@ -26,8 +28,8 @@ def post_handler(data):
             using_gpg = True
             _, failed = gpg.encrypt('test', recipient)
             if failed:
-                result['error'] =  'Failed to obtain public for key %s' %recipient
-                return
+                #result['error'] =  'Failed to obtain public for key %s' %recipient
+                messages.error(request, 'Failed to obtain public for key %s' %recipient);
         if using_gpg:
             gpg_note = ('If GPG fails for whatever reason, one or more emails '
                     'will be sent in plain text.')
@@ -41,8 +43,7 @@ def post_handler(data):
         # Send the shares by email
         for share, email in zip(shares, emails):
             message = "%s" %share
-            response = mailer.processMail([note, share, addr,
+            result = mailer.sharesMail([note, share, addr,
                 email[0], email[1], str(int(email[2]))]
                 )
-        result['result'] = response
         return result

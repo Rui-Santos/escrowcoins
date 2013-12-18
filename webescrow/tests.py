@@ -6,6 +6,9 @@ run with "manage.py test".
 from django.utils import unittest
 import escrowhandler
 import bitcoin
+import gpg
+import mailer
+from webescrow.models import *
 
 class EscrowHander(unittest.TestCase):
 
@@ -28,9 +31,30 @@ class Bitcoin(unittest.TestCase):
 		self.assertEqual(2,len(bitcoin.privatekey()))
 
 	def test_bitcoin_address(self):
-		'''check if bitcoin address generate is valid'''
+		'''check if bitcoin address generated is valid'''
 		pk  = bitcoin.privatekey()
 		addr = bitcoin.address(pk)
 		self.assertEqual(addr,len(bitcoin.address(bitcoin.privatekey())))
+		
+
+class Gpg(unittest.TestCase):
+	"""Tests  for Gpg"""
+
+	def test_gpg_encyption(self):
+		_, failed = gpg.encrypt('test',"test@test.com")
+		self.assertEqual(False,failed)
+
+
+class Mailer(unittest.TestCase):
+	"""test mailer"""
+
+	def test_agree_terms_email(self):
+		"""agree terms email , sent before the actual shares"""
+		transaction = Transaction.objects.all()[:1]
+		print transaction
+		response = mailer.agreeTerms('madradavid@gmail.com','Buyer',transaction.get_unique_url())
+		self.assertEquals(True,response)
+		
+
 		
 

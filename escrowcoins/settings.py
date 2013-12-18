@@ -107,6 +107,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    #'escrowcoins.custom_middleware.timeOutMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -143,6 +144,7 @@ INSTALLED_APPS = (
     'suit',
     'django.contrib.admin',
     'coverage',
+    'notification',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

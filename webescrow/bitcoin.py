@@ -1,5 +1,5 @@
 #
-# Note: Thiw will generate uncompressed keys.
+# Note: This will generate uncompressed keys.
 #
 
 import ecdsa

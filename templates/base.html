@@ -42,9 +42,15 @@
 
       <ul class="nav navbar-nav navbar-right">
     
-           <li>
+        <li>
           <a href="{{BASE_URL}}transactions">My Transactions</a>
         </li>
+
+
+         <li>
+          <a href="{{BASE_URL}}complaint">File complaint</a>
+        </li>
+
            <li>
           <a href="{{BASE_URL}}accounts/{{request.user.username}}">Account</a>
         </li>
@@ -69,20 +75,29 @@
 </header>
 
 <div class="container landingpage_wrapper">
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} notification" >
+<button type="button" class="close" data-dismiss="alert">×</button>
+{{message}}
+</div>
+{% endfor %}
+{% endif %}
 
-<!--notifications-->
-{%if notification.success%}
+
+<!--messages-->
+{%if message.success%}
 <div class="alert alert-success notification" >
 <button type="button" class="close" data-dismiss="alert">×</button>
-{{notification.message}}
+{{message.message}}
 </div>
 {%endif%}
 
 
-{%if notification.error%}
+{%if message.error%}
 <div class="alert alert alert-error notification" >
 <button type="button" class="close" data-dismiss="alert">×</button>
-{{notification.message}}
+{{message.message}}
 </div>
 {%endif%}
 

@@ -15,12 +15,14 @@ class Migration(SchemaMigration):
             ('sender', self.gf('django.db.models.fields.EmailField')(max_length=70)),
             ('buyer', self.gf('django.db.models.fields.EmailField')(max_length=70)),
             ('escrower', self.gf('django.db.models.fields.EmailField')(max_length=70)),
-            ('added', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+            ('added', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
+            ('expires', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
             ('is_sender', self.gf('django.db.models.fields.BooleanField')(default=True)),
             ('amount', self.gf('django.db.models.fields.IntegerField')()),
             ('helptext', self.gf('django.db.models.fields.TextField')()),
             ('condition_description', self.gf('django.db.models.fields.TextField')()),
             ('condition_document', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('is_complete', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
         db.send_create_signal(u'webescrow', ['Transaction'])
 
@@ -69,14 +71,16 @@ class Migration(SchemaMigration):
         },
         u'webescrow.transaction': {
             'Meta': {'object_name': 'Transaction'},
-            'added': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'added': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'amount': ('django.db.models.fields.IntegerField', [], {}),
             'buyer': ('django.db.models.fields.EmailField', [], {'max_length': '70'}),
             'condition_description': ('django.db.models.fields.TextField', [], {}),
             'condition_document': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'escrower': ('django.db.models.fields.EmailField', [], {'max_length': '70'}),
+            'expires': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'helptext': ('django.db.models.fields.TextField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'is_complete': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'is_sender': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'sender': ('django.db.models.fields.EmailField', [], {'max_length': '70'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})

@@ -17,3 +17,16 @@ def send_simple_message(to,sender,message,subject):
               "subject": subject,
               "text": message})
     return response.status_code
+
+
+def default(obj):
+    """Default JSON serializer."""
+    import calendar, datetime
+    if isinstance(obj, datetime.datetime):
+        if obj.utcoffset() is not None:
+            obj = obj - obj.utcoffset()
+    millis = int(
+        calendar.timegm(obj.timetuple()) * 1000 +
+        obj.microsecond / 1000
+    )
+    return millis

@@ -19,22 +19,21 @@
                 </tr>
               </thead>
               <tbody>
-                   {% for t in transactions %}
                   <tr>
-                  <td><a href="{{t.get_unique_url}}">{{t.get_invoice_number}}</a></td>
+                  <td><a href="{{transaction.get_unique_url}}">{{transaction.get_invoice_number}}</a></td>
                   <td>
-                  {%if t.is_sender%}
+                  {%if transaction.is_sender%}
                   Sender
                   {% else %}
                   Buyer
                   {%endif%}
                   </td>
-                  <td>{{t.buyer}}</td>
-                  <td>{{t.sender}}</td>
-                  <td>{{t.amount}}</td>
-                  <td>{{t.condition_description}}</td>
+                  <td>{{transaction.buyer}}</td>
+                  <td>{{transaction.sender}}</td>
+                  <td>{{transaction.amount}}</td>
+                  <td>{{transaction.condition_description}}</td>
                   <td>
-                  {%if t.condition_document%}
+                  {%if transaction.condition_document%}
                   Yes
                   {% else %}
                   No
@@ -42,9 +41,7 @@
                   </td>
                 </tr>
 
-                    {% endfor %}
-
-
+               
 
               </tbody>
             </table>

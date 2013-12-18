@@ -1,5 +1,8 @@
 .landingpage_wrapper{
 	margin-top: 65px;
+	width: 95%;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 .escrowform label{
@@ -22,4 +25,20 @@ color: red;
 	width: 80%;
 	margin-right: auto;
 	margin-left: auto;
+}
+
+
+
+.alert-error {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+}
+
+.alert-error hr {
+  border-top-color: #e6c1c7;
+}
+
+.alert-error .alert-link {
+  color: #953b39;
 }

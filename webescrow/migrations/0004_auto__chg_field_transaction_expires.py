@@ -8,27 +8,14 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Transaction'
-        db.create_table(u'webescrow_transaction', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('sender', self.gf('django.db.models.fields.EmailField')(max_length=70)),
-            ('buyer', self.gf('django.db.models.fields.EmailField')(max_length=70)),
-            ('escrower', self.gf('django.db.models.fields.EmailField')(max_length=70)),
-            ('added', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('is_sender', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('amount', self.gf('django.db.models.fields.IntegerField')()),
-            ('helptext', self.gf('django.db.models.fields.TextField')()),
-            ('condition_description', self.gf('django.db.models.fields.TextField')()),
-            ('condition_document', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal(u'webescrow', ['Transaction'])
 
+        # Changing field 'Transaction.expires'
+        db.alter_column(u'webescrow_transaction', 'expires', self.gf('django.db.models.fields.DateTimeField')(null=True))
 
     def backwards(self, orm):
-        # Deleting model 'Transaction'
-        db.delete_table(u'webescrow_transaction')
 
+        # Changing field 'Transaction.expires'
+        db.alter_column(u'webescrow_transaction', 'expires', self.gf('django.db.models.fields.DateTimeField')())
 
     models = {
         u'auth.group': {
@@ -69,14 +56,16 @@ class Migration(SchemaMigration):
         },
         u'webescrow.transaction': {
             'Meta': {'object_name': 'Transaction'},
-            'added': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'added': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'amount': ('django.db.models.fields.IntegerField', [], {}),
             'buyer': ('django.db.models.fields.EmailField', [], {'max_length': '70'}),
             'condition_description': ('django.db.models.fields.TextField', [], {}),
             'condition_document': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'escrower': ('django.db.models.fields.EmailField', [], {'max_length': '70'}),
-            'helptext': ('django.db.models.fields.TextField', [], {}),
+            'expires': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'helptext': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'is_complete': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'is_sender': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'sender': ('django.db.models.fields.EmailField', [], {'max_length': '70'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})

@@ -16,21 +16,21 @@ class Transaction(models.Model):
 	buyer = models.EmailField(max_length=70,blank=False)
 	escrower = models.EmailField(max_length=70,blank=False)
 	added = models.DateTimeField(default=datetime.now)
+	expires = models.DateTimeField(null=True, blank=True)
 	is_sender = models.BooleanField(default=True)
 	#amount = models.DecimalField(blank=False)
 	amount = models.IntegerField(blank=False)
-	helptext = models.TextField()
+	helptext = models.TextField(blank=True)
 	condition_description = models.TextField()
 	condition_document =  models.BooleanField(default=False)
+	is_complete = models.BooleanField(default=False)
 
-	@classmethod
+
 	def get_invoice_number(self):
 		'''
 		invoice number
 		'''
-		invoice = str(self.pk^0xABCDEFAB)
-		print invoice
-		return invoice
+		return str(self.pk^0xABCDEFAB)
 
 
 	@models.permalink

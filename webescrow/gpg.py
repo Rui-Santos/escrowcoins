@@ -4,6 +4,9 @@ import subprocess
 import escrowcoins.settings as settings
 
 def encrypt(msg, recipient):
+    '''
+    encrypt with gpg
+    '''
     temp_fd, temp = tempfile.mkstemp()
     os.write(temp_fd, msg)
     os.close(temp_fd)

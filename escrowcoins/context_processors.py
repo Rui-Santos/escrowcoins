@@ -1,6 +1,4 @@
 from django.conf import settings
-
-
 def global_vars(request):
 	LOGGED_IN = False
 	if request.user.is_authenticated():
