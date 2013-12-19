@@ -43,7 +43,9 @@ def post_handler(data, request):
         # Send the shares by email
         for share, email in zip(shares, emails):
             message = "%s" %share
-            result = mailer.sharesMail([note, share, addr,
-                email[0], email[1], str(int(email[2]))]
-                )
+            result = False
+            print email
+            #result = mailer.sharesMail([note, share, addr,
+            #    email[0], email[1], str(int(email[2]))]
+            #    )
         return result

@@ -24,6 +24,7 @@ class Transaction(models.Model):
 	condition_description = models.TextField()
 	condition_document =  models.BooleanField(default=False)
 	is_complete = models.BooleanField(default=False)
+	terms_agreed = models.BooleanField(default=False)
 
 
 	def get_invoice_number(self):

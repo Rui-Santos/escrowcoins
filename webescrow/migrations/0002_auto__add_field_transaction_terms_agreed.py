@@ -8,14 +8,16 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding field 'Transaction.terms_agreed'
+        db.add_column(u'webescrow_transaction', 'terms_agreed',
+                      self.gf('django.db.models.fields.BooleanField')(default=False),
+                      keep_default=False)
 
-        # Changing field 'Transaction.expires'
-        db.alter_column(u'webescrow_transaction', 'expires', self.gf('django.db.models.fields.DateTimeField')(null=True))
 
     def backwards(self, orm):
+        # Deleting field 'Transaction.terms_agreed'
+        db.delete_column(u'webescrow_transaction', 'terms_agreed')
 
-        # Changing field 'Transaction.expires'
-        db.alter_column(u'webescrow_transaction', 'expires', self.gf('django.db.models.fields.DateTimeField')())
 
     models = {
         u'auth.group': {
@@ -68,6 +70,7 @@ class Migration(SchemaMigration):
             'is_complete': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'is_sender': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'sender': ('django.db.models.fields.EmailField', [], {'max_length': '70'}),
+            'terms_agreed': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
         }
     }

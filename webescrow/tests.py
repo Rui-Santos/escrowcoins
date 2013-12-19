@@ -1,5 +1,5 @@
 """
-webescrow Tests
+Webescrow Tests
 run with "manage.py test".
 """
 
@@ -9,6 +9,7 @@ import bitcoin
 import gpg
 import mailer
 from webescrow.models import *
+import escrowcoins.settings as settings
 
 class EscrowHander(unittest.TestCase):
 
@@ -50,10 +51,11 @@ class Mailer(unittest.TestCase):
 
 	def test_agree_terms_email(self):
 		"""agree terms email , sent before the actual shares"""
-		transaction = Transaction.objects.all()[:1]
-		print transaction
-		response = mailer.agreeTerms('madradavid@gmail.com','Buyer',transaction.get_unique_url())
-		self.assertEquals(True,response)
+		response = mailer.agreeTermsEmail('madradavid@gmail.com',
+			'Buyer',
+			'/transaction/2882400173/'
+			)
+		self.assertEquals(200,response)
 		
 
 		

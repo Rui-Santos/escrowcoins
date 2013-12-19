@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from escrowcoins.views import landing_page, list_transactions, list_transaction, add_complaint
+from escrowcoins.views import landing_page, list_transactions, list_transaction, add_complaint, transaction_agree_terms
 from django.conf import settings
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -11,6 +11,7 @@ urlpatterns = patterns('',
                       url(r'^$',landing_page),
                       url(r'^transactions$',list_transactions),
                       url(r'^transaction/(\w+)/$', list_transaction, name='transaction'),
+                      url(r'^transaction/(\w+)/agreeterms', transaction_agree_terms, name='agreeterms'),
                       url(r'^complaint$',add_complaint),
                       #(r'^accounts/signup/$','userena.views.signup',{'signup_form':forms.SignupFormExtra}),
                       (r'^accounts/', include('userena.urls')),

@@ -92,22 +92,21 @@ Subject: %s
     #server = smtplib.SMTP(SERVER)
     #server.sendmail(FROM, [email], message)
     #server.quit()
-    return send_simple_message(email,FROM,message,SUBJECT)  
+    return send_simple_message(email, FROM, message, SUBJECT)  
 
 
 
-def agreeTerms(email,role,escrow_link):
+def agreeTermsEmail(email,part,escrow_link,note):
     '''
     Email for Buyer or Seller To Agree to terms
     '''
     body = TEMPLATE_BASE % {'part': part,
                 'fromwhere': escrow_link, 'msg': """
 
-The user %s indicated that you are a %s
-
 For this Escrow to be Started you need to agree to the terms indicated here %s
 
-""" % (email, role, escrow_link)}
+""" % (escrow_link)}
+    return send(email,note, body)
 
 
 def sharesMail(data):
