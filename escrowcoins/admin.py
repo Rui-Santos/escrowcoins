@@ -6,6 +6,7 @@ from mptt.admin import MPTTModelAdmin
 
 class TransactionAdmin(admin.ModelAdmin):
     #list_display = ('Transaction',)
+    title = ('decade born'),
     fields = ('user', 'sender', 
         'buyer', 'expires', 'amount', 
         'condition_description', 'condition_document',  

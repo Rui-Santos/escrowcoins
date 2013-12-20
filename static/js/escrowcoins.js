@@ -17,6 +17,14 @@
   }
 
 
+function loadComplaint(){
+  var link = $('#complaint_link').val();
+  window.location.replace(link);
+  return false ;
+}
+
+
+
    $(function() {
    $(".input-group.date").datepicker({ autoclose: true, todayHighlight: true ,calendarWeeks: true,});
     });

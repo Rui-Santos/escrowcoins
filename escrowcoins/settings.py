@@ -10,9 +10,6 @@ APP_NAME ='Escrowcoins'
 SERVER_HOST = 'localhost'
 
 
-#404 handler
-handler404 = 'escrowcoins.views.custom_404_view'
-
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
