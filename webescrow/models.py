@@ -41,6 +41,9 @@ class Transaction(models.Model):
 		'''
 		return('transaction', [str(self.pk^0xABCDEFAB)])
 
+	def __unicode__(self):
+		return self.get_invoice_number()
+
 
 #for storing money
 class CurrencyField(models.DecimalField):

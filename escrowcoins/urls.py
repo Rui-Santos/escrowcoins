@@ -1,11 +1,13 @@
 from django.conf.urls import patterns, include, url
-from escrowcoins.views import landing_page, list_transactions, list_transaction, add_complaint, transaction_agree_terms
+from escrowcoins.views import landing_page, list_transactions, list_transaction, add_complaint, transaction_agree_terms, activate_account
 from django.conf import settings
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 #custom forms
 from accounts import forms
+
+import signals
 
 urlpatterns = patterns('',
                       url(r'^$',landing_page),
@@ -14,6 +16,11 @@ urlpatterns = patterns('',
                       url(r'^transaction/(\w+)/agreeterms', transaction_agree_terms, name='agreeterms'),
                       url(r'^complaint$',add_complaint),
                       #(r'^accounts/signup/$','userena.views.signup',{'signup_form':forms.SignupFormExtra}),
+
+                      #overide userena accout activation
+                       # Activate
+                      url(r'^accounts/activate/(?P<activation_key>\w+)/$',activate_account,name='userena_activate'),
+
                       (r'^accounts/', include('userena.urls')),
                        # Examples:
                        # url(r'^$', 'escrowcoins.views.home', name='home'),

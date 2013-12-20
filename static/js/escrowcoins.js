@@ -18,7 +18,5 @@
 
 
    $(function() {
-    $('#expires').datetimepicker({
-      language: 'en'
-    });
+   $(".input-group.date").datepicker({ autoclose: true, todayHighlight: true ,calendarWeeks: true,});
     });

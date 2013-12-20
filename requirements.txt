@@ -1,3 +1,4 @@
+django-mptt
 django-notification
 django-session-security
 coverage

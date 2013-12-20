@@ -42,3 +42,8 @@ color: red;
 .alert-error .alert-link {
   color: #953b39;
 }
+
+
+.footer .content .copyright {
+display: none !important;
+}

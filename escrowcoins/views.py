@@ -11,6 +11,9 @@ from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from webescrow import mailer
+from userena.models import UserenaSignup
+from userena.decorators import secure_required
+from utils import logged_out_required
 
 
 def render_view(request,template,data):
@@ -48,7 +51,14 @@ def home_page(request):
         post_values['user'] = request.user.pk
         post_values['added'] = datetime.now().date()
         post_values['is_complete'] = False
-        post_values['expires'] = datetime.now().date();
+        
+
+        if not post_values['expires']:
+            post_values['expires'] = datetime.now().date()
+        else:
+            post_values['expires'] = datetime.strptime(post_values['expires'], '%m-%d-%Y')
+
+
         if not 'encypt_emails' in post_values:
             post_values['encypt_emails'] = False
         form = TransactionForm(post_values)   
@@ -68,8 +78,12 @@ def home_page(request):
                 messages.success(request, 'The Escrow was successfully created , An email was sent to %s , once they agree to the Escrow terms you will be notified and the escrow will be marked active.'% email)
         else:
             messages.error(request, form.errors)
+    now = datetime.now()        
+    date_today = now.strftime("%m-%d-%Y")
+    print date_today
     return render_view(request,'home.html',{'TransactionForm':TransactionForm,
-        'escroweremail':settings.ESCROWER_EMAIL})
+        'escroweremail':settings.ESCROWER_EMAIL,
+        'date_today ':date_today })
 
 
 @login_required
@@ -148,8 +162,31 @@ def add_complaint(request):
     Add Complaint
     @request request object()
     '''
-    #transactions = Transaction.objects.values_list('id', flat=True).filter(user=request.user.pk)
     transactions = Transaction.objects.all().filter(user=request.user.pk) 
     return render_view(request,'complaint.html',
         {'transactions':transactions},
         )
+
+
+@logged_out_required
+def activate_account(request, activation_key,
+             template_name='userena/activate_fail.html',
+             success_url=None, extra_context=None):
+    """
+    Activate a user with an activation key.
+    Overide userena activation 
+    """
+    user = UserenaSignup.objects.activate_user(activation_key)
+    if user:
+        '''login after activation only if specified in settings'''
+        if settings.USERENA_ACTIVATION_LOGIN:
+            # Sign the user in.
+            auth_user = authenticate(identification=user.email,
+                check_password=False)
+            login(request, auth_user)
+        else:
+            messages.success(request, 'Your account was successfully activated , please login to continue')
+            return redirect(settings.LOGIN_URL)
+    else:
+        messages.error(request, 'The Activation code expired')
+        return redirect(settings.BASE_URL)
