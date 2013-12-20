@@ -16,7 +16,9 @@ def post_handler(data, request):
         ['Buyer',data['buyer'], data['encypt_emails']],
         ['Seller',data['sender'],data['encypt_emails']]
         )
-    note = data.get('note', u'').encode('utf8')
+    note = ''
+    if data['note']:
+        note = data.get('note', u'').encode('utf8')
     result = {}
     if len(emails) == 3:
        # Test GPG.
@@ -27,9 +29,9 @@ def post_handler(data, request):
                 continue
             using_gpg = True
             _, failed = gpg.encrypt('test', recipient)
-            if failed:
+            #if failed:
                 #result['error'] =  'Failed to obtain public for key %s' %recipient
-                messages.error(request, 'Failed to obtain public for key %s' %recipient);
+                #messages.error(request, 'Failed to obtain public for key %s' %recipient);
         if using_gpg:
             gpg_note = ('If GPG fails for whatever reason, one or more emails '
                     'will be sent in plain text.')
@@ -43,9 +45,9 @@ def post_handler(data, request):
         # Send the shares by email
         for share, email in zip(shares, emails):
             message = "%s" %share
-            result = False
+            result = True
             print email
-            #result = mailer.sharesMail([note, share, addr,
-            #    email[0], email[1], str(int(email[2]))]
-            #    )
+            result = mailer.sharesMail([note, share, addr,
+                email[0], email[1], str(int(email[2]))]
+                )
         return result

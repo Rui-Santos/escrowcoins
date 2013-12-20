@@ -112,13 +112,16 @@
       <div class="checkbox">
         <label>
           <input type="radio" name="agree_terms" value="0">
-          <span style="color:red;">I Don't Agree to the Terms and Conditions for this Escrow
+          <span style="color:red;">I Don't Agree to the Terms and Conditions for this Escrow</span>
         </label>
       </div>
 
     </div>
   </div>
 
+<input type="hidden"  name="escrower" value="{{escroweremail}}">
+<input type="hidden"  name="encypt_emails" value="0">
+<input type="hidden"  name="note" value="{{transactions.helptext}}">
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">

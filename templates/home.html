@@ -9,9 +9,8 @@
 
 <div class="row escrowform">
 
-
 <form class="form-horizontal" role="form" method="POST">
-  {% csrf_token %}
+{% csrf_token %}
 <div class="page-header">
 <h3>Create Escrow</h3>
 </div>
@@ -46,6 +45,7 @@
 
 
 <input type="hidden" class="form-control" name="escrower" value="{{escroweremail}}" placeholder="Email" required="required" readonly>
+
 
 
 

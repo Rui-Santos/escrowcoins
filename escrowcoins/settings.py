@@ -1,3 +1,4 @@
+
 # Django settings for escrowcoins project.
 import os
 import django.conf.global_settings as DEFAULT_SETTINGS

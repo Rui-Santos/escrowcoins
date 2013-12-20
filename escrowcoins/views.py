@@ -1,6 +1,6 @@
 # Create your views here.
 from django.template import Template, context, RequestContext
-from django.shortcuts import render_to_response,render, get_object_or_404
+from django.shortcuts import render_to_response,render, get_object_or_404, redirect
 from django.http import HttpResponseNotFound
 import webescrow.escrowhandler as escrowhandler
 import settings as settings
@@ -126,12 +126,19 @@ def transaction_agree_terms(request,name):
         post_values = request.POST.copy()
         if post_values['agree_terms']:
             '''user has agreed to terms ,do ahead and create shares'''
-            response = escrowhandler.post_handler(post_values, request);
+            if escrowhandler.post_handler(post_values, request):
+                '''update the values to show that the user has agreed'''
+                Transaction.objects.filter(id=id).update(terms_agreed=True)
+                #print transaction.get_unique_url()
+                #transaction.update(terms_agreed=True)
+                messages.success(request, 'The Escrow was successfully created,please check your inbox to find your part of the shares')
+                return redirect(transaction.get_unique_url())
         else:
             '''user has not agreed terms ,figure out what to do'''
             pass
     return render_view(request,'agree_transaction.html',
-        {'transaction':transaction},
+        {'transaction':transaction,
+        'escroweremail':settings.ESCROWER_EMAIL},   
         )
 
 
