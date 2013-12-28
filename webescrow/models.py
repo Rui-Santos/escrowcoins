@@ -29,7 +29,7 @@ class Transaction(models.Model):
         ('BTC', 'Bitcoin'),
         ('LTC', 'Litecoin'),
     )
-    currency = models.CharField(max_length=1, choices=CURRENCY_CHOICES)
+    currency = models.CharField(max_length=15, choices=CURRENCY_CHOICES, default=True, blank=True)
 
     def get_invoice_number(self):
         '''

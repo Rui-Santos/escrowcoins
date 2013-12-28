@@ -81,7 +81,6 @@ def home_page(request):
             messages.error(request, form.errors)
     now = datetime.now()        
     date_today = now.strftime("%m-%d-%Y")
-    print date_today
     return render_view(request,'home.html',{'TransactionForm':TransactionForm,
         'escroweremail':settings.ESCROWER_EMAIL,
         'date_today ':date_today })
