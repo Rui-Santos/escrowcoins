@@ -48,6 +48,23 @@
 
               </tbody>
             </table>
+  
+<ul class="pagination">
+        {% if transactions.has_previous %}
+            <li><a href="?page={{ transactions.previous_page_number }}">«</a></li>
+        {% endif %}
+
+        <li class="disabled">
+            <a>Page {{ transactions.number }} of {{ transactions.paginator.num_pages }}.</a>
+        </li>
+
+        {% if transactions.has_next %}
+            <li><a href="?page={{ transactions.next_page_number }}">»</a></li>
+        {% endif %}
+</ul>
+
+
+
   </div>
 
 

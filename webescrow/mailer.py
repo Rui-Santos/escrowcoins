@@ -75,8 +75,7 @@ Do not share this key with anyone else."""}
 
 
 
-def send(email, note, body):
-    subject = SUBJECT
+def send(email, note, body, subject):
     if note:
         subject = '%s - %s' % (subject, note)
         footer = '\n\nEscrow note: %s' % note
@@ -92,12 +91,12 @@ Subject: %s
     #server = smtplib.SMTP(SERVER)
     #server.sendmail(FROM, [email], message)
     #server.quit()
-    return send_simple_message(email, FROM, message, SUBJECT)  
+    return send_simple_message(email, FROM, message, subject)  
 
 
 
-def agreeTermsEmail(email,part,escrow_link,note):
-    '''
+def agreeTermsEmail(email, part, escrow_link, invoice_no, note):
+    ''' 
     Email for Buyer or Seller To Agree to terms
     '''
     body = TEMPLATE_BASE % {'part': part,
@@ -106,7 +105,8 @@ def agreeTermsEmail(email,part,escrow_link,note):
 For this Escrow to be Started you need to agree to the terms indicated here %s
 
 """ % (escrow_link)}
-    return send(email,note, body)
+    subject = SUBJECT+' #%s' %invoice_no
+    return send(email,note, body, subject)
 
 
 def sharesMail(data):
@@ -142,5 +142,5 @@ Your key:
                 print "GPG failed, sending in plain text: %s" % err
             else:
                 body = body_new
-
-        return send(email, note, body)
+        subject = SUBJECT        
+        return send(email, note, body, subject)

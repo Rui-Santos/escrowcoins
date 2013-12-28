@@ -6,6 +6,97 @@
 
 <div class="transactions">
 
+
+
+<div class="row">
+        <div class="col-xs-12 col-md-8">
+
+
+   <section>
+   <div class="page-header">
+    <h4 id="page-header">Merchandise</h4>
+    </div>
+    
+      {{transaction.condition_description}}
+    </section>
+
+
+
+        <section>
+    <div class="page-header">
+    <h4 id="page-header">Terms</h4>
+    </div>
+
+    <div class="row show-grid">
+        <div class="col-md-6 leftside">Transaction No.#</div>
+        <div class="col-md-6"><a href="{{transaction.get_unique_url}}">{{transaction.get_invoice_number}}</a></div>
+      </div>
+
+
+    <div class="row show-grid">
+        <div class="col-md-6 leftside">Buyer</div>
+        <div class="col-md-6">{{transaction.buyer}}</div>
+      </div>
+
+
+    <div class="row show-grid">
+        <div class="col-md-6 leftside">Seller</div>
+        <div class="col-md-6">{{transaction.sender}}</div>
+      </div>
+
+        <div class="row show-grid">
+        <div class="col-md-6 leftside">Inspection period</div>
+        <div class="col-md-6">{{transaction.expires}}</div>
+      </div>
+
+
+    </section>
+
+
+  <section id="complaint">
+    <div class="page-header">
+    <h4 id="page-header">File Complaint</h4>
+    </div>
+
+ 
+      
+      <div class="bs-example">
+      <form role="form">
+      
+      <div class="clearfix">
+        <textarea class="form-control" rows="3"></textarea>
+       </div>
+
+       <div class="actions">
+       <button type="submit" class="btn btn-primary">Submit</button>
+       </div> 
+
+
+      </form>
+    </div>
+
+
+
+
+    </section>
+
+
+        </div>
+
+<!--
+
+        <div class="col-xs-6 col-md-4">
+          <div class="page-header">
+      <h4 id="page-header">History</h4>
+    </div>  
+
+        </div>
+   -->   
+
+      </div>
+
+
+<!--
 <table class="table">
               <thead>
                 <tr>
@@ -45,6 +136,7 @@
 
               </tbody>
             </table>
+-->
   </div>
 
 

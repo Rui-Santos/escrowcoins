@@ -47,3 +47,8 @@ color: red;
 .footer .content .copyright {
 display: none !important;
 }
+
+
+.leftside{
+text-align: right;
+}

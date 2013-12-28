@@ -13,8 +13,8 @@ from django.contrib.auth.decorators import login_required
 from webescrow import mailer
 from userena.models import UserenaSignup
 from userena.decorators import secure_required
-from utils import logged_out_required
-
+from decorators import logged_out_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def render_view(request,template,data):
     '''
@@ -73,7 +73,8 @@ def home_page(request):
                 role = 'Buyer'
             escrow_link = settings.BASE_URL+''+transaction.get_unique_url()+'agreeterms'
             """Send an email asking the user to agree terms"""
-            response = mailer.agreeTermsEmail(email,role,escrow_link,post_values['helptext'])
+            invoice_number = transaction.get_invoice_number()
+            response = mailer.agreeTermsEmail(email,role,escrow_link,invoice_number,post_values['helptext'])
             if response:
                 messages.success(request, 'The Escrow was successfully created , An email was sent to %s , once they agree to the Escrow terms you will be notified and the escrow will be marked active.'% email)
         else:
@@ -94,7 +95,18 @@ def list_transactions(request):
     '''
     if not request.user.is_authenticated:
         return HttpResponseNotFound('<h1>No Page Here</h1>')
-    transactions = Transaction.objects.all().filter(user=request.user.pk) 
+    transactions_list = Transaction.objects.all().filter(user=request.user.pk) 
+    paginator = Paginator(transactions_list , 5)
+    page = request.GET.get('page')
+    try:
+        transactions = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        transactions = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        transactions = paginator.page(paginator.num_pages)
+
     return render_view(request,'transactions.html',
         {'transactions':transactions}
         )
