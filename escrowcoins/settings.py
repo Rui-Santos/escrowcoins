@@ -16,7 +16,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-BASE_URL = 'http://109.74.199.47/escrowcoins/'
+BASE_URL = 'http://beta420.escrowcoins.com/'
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__),os.pardir))+'/'
 
 DATABASES = {
