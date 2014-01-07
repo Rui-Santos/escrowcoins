@@ -21,7 +21,7 @@
     <div class="col-sm-10">
       <select type="email" id="complaint_link" class="form-control" name="complaint_link" placeholder="i am" required="required">
       {% for t in transactions %}
-      <option value={{ t.get_unique_url }}#complaint>#{{t.get_invoice_number}}</option>
+      <option value={{ t.get_unique_url }}complaint>#{{t.get_invoice_number}}</option>
       {% endfor %}
       </select>
     </div>

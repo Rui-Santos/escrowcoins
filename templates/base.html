@@ -102,6 +102,13 @@
 </div>
 {%endif%}
 
+ {% if not LOGGED_IN %}
+
+<div class="page-header">
+      <h3 id="template">The Most Secure Bitcoin and Litecoin Escrow Service</h3>
+    </div>
+ {%endif %}
+
 
 {% block content %}
 
@@ -137,6 +144,11 @@
 
     </script>
 
+
+<!-- Google Analytics -->
+{% if DEBUG == False %}
+{% include "ga.html" %}
+{% endif %}
 
 </body>
 </html>

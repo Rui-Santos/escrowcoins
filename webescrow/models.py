@@ -21,8 +21,8 @@ class Transaction(models.Model):
     amount = models.IntegerField(blank=False)
     helptext = models.TextField(blank=True)
     condition_description = models.TextField()
-    condition_document = models.BooleanField(default=False)
-    is_complete = models.BooleanField(default=False)
+    condition_document = models.BooleanField(default=False, verbose_name = "Requires Document")
+    is_complete = models.BooleanField(default=False, verbose_name = "Is Complete")
     terms_agreed = models.BooleanField(default=False)
     terms_agreed_date = models.DateTimeField(null=True, blank=True)
     CURRENCY_CHOICES = (

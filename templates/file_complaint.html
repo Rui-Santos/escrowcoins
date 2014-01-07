@@ -12,25 +12,11 @@
         <div class="col-xs-12 col-md-8">
 
 
-   <section>
-   <div class="page-header">
-    <h4 id="page-header">Merchandise</h4>
-    </div>
-    
-      {{transaction.condition_description}}
-    </section>
-
-
 
         <section>
     <div class="page-header">
-    <h4 id="page-header">Terms</h4>
+    <h4 id="page-header">Transaction No #{{transaction.get_invoice_number}}</h4>
     </div>
-
-    <div class="row show-grid">
-        <div class="col-md-6 leftside">Transaction No</div>
-        <div class="col-md-6"><a href="#">#{{transaction.get_invoice_number}}</a></div>
-      </div>
 
 
     <div class="row show-grid">
@@ -44,6 +30,23 @@
         <div class="col-md-6">{{transaction.sender}}</div>
       </div>
 
+         <div class="row show-grid">
+        <div class="col-md-6 leftside">Description</div>
+        <div class="col-md-6">{{transaction.condition_description}}</div>
+      </div>
+
+         <div class="row show-grid">
+        <div class="col-md-6 leftside">Document Required</div>
+        <div class="col-md-6">
+          {%if transaction.condition_document%}
+                  Yes
+                  {% else %}
+                  No
+                  {%endif%}
+        </div>
+      </div>
+
+
         <div class="row show-grid">
         <div class="col-md-6 leftside">Inspection period</div>
         <div class="col-md-6">{{transaction.expires}}</div>
@@ -55,8 +58,46 @@
 
   <section id="complaint">
     <div class="page-header">
-    <h5 id="page-header"><a href="{{t.get_unique_url }}complaint">File Complaint</a></h5>
+    <h4 id="page-header">File Complaint</h4>
     </div>
+
+ 
+      
+      <div class="bs-example">
+      <form role="form" class="form-horizontal">
+      
+
+
+    <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Describe the Complaint</label>
+    <div class="col-sm-10">
+    <textarea class="form-control" required="required"></textarea>
+    </div>
+    </div>
+    
+     <div class="form-group">
+     <label for="inputEmail3" class="col-sm-2 control-label">Add Any Supporting Documents</label>
+    <div class="col-sm-10">
+     <input type="file"  {%if transaction.condition_document%}required="required" {%endif%} > 
+    </div>
+    </div>
+
+    <div class="form-group">
+    <div class="col-sm-10">
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    </div>
+
+
+ 
+
+
+      </form>
+    </div>
+
+
+
+
     </section>
 
 

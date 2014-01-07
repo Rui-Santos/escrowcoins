@@ -168,6 +168,21 @@ def transaction_agree_terms(request,name):
 
 
 @login_required
+def transaction_complaint(request, name):
+    '''
+    Agree transaction terms
+    @request  request object
+    @name string transaction hashed name
+    '''
+    id = int( name )^0xABCDEFAB
+    transaction = get_object_or_404(Transaction.objects.filter(id=id), id=id)
+    '''File a Complaint'''
+    return render_view(request,'file_complaint.html', 
+        {'transaction':transaction},   
+        )
+
+
+@login_required
 def add_complaint(request):
     '''
     Add Complaint
