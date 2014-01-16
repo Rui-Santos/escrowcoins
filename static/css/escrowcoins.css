@@ -6,7 +6,7 @@
 }
 
 .escrowform label{
-	width: 20%;
+margin-bottom: 10px !important;
 }
 
 @media (min-width: 768px){
@@ -51,4 +51,36 @@ display: none !important;
 
 .leftside{
 text-align: right;
+}
+
+
+.password_wrapper{
+	width: 100%;
+}
+
+
+.password_wrapper .form-group{
+	width: 45%;
+	float: left;
+}
+
+.signupform{
+	width: 50%;
+}
+
+.signup_banner{
+	margin-top: 10px;
+	border-bottom: 1px solid #eeeeee;
+	border-top: 1px solid #eeeeee;
+	display: block;
+	overflow: hidden;
+	padding: 5px;
+}
+
+.signup_banner h1{
+	margin-top: 1px !important;
+}
+
+.logo{
+	width: 106px
 }

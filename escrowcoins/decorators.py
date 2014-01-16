@@ -1,6 +1,7 @@
 '''
 Decorators
 '''
+from django.shortcuts import Http404
 
 from django.contrib import messages
 

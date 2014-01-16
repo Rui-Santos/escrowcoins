@@ -8,14 +8,17 @@
 
 
 <div class="row escrowform">
-
 <form class="form-horizontal" role="form" method="POST">
 {% csrf_token %}
-<div class="page-header">
-<h3>Create Escrow</h3>
+<div class="page-header" style="text-align: center;">
+<h3>Start Escrow</h3>
 </div>
+
  <div class="col-xs-12 col-md-10">
 {{errors}}
+
+  <input type="hidden" name="is_sender" value="1">
+  <!--
    <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">I AM</label>
     <div class="col-sm-10">
@@ -25,22 +28,37 @@
       </select>
     </div>
   </div>
+  -->
 
-
+  <input type="hidden" id="seller_email" class="form-control" name="sender" value="{{ request.user.email }}">
+<!--
 <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">Seller Email</label>
     <div class="col-sm-10">
       <input type="email" id="seller_email" class="form-control" name="sender" placeholder="Email" required="required" value="{{ request.user.email }}" readonly="readonly">
     </div>
   </div>
+-->
+
+<div class="col-sm-6">
+
 
   <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 control-label">Buyer Email</label>
-    <div class="col-sm-10">
-      <input type="email" id="buyer_email" class="form-control" name="buyer" placeholder="Email" required="required">
-    </div>
+    <label for="inputEmail3" class="control-label">Escrow name:</label>
+      <input type="email" id="buyer_email" class="form-control" name="title" placeholder="Type in Escrow name" required="required">
   </div>
 
+
+  <div class="form-group">
+    <label for="inputEmail3" class="control-label">Reciever email address:</label>
+      <input type="email" id="buyer_email" class="form-control" name="buyer" placeholder="email address" required="required">
+  </div>
+
+<div class="form-group">
+    <label for="inputEmail3" class="control-label">Reason for Escrow:</label>
+      <textarea class="form-control" name="condition_description" placeholder="something for remembering this escrow">
+      </textarea>
+  </div>
 
 
 
@@ -50,25 +68,53 @@
 
 
 <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 control-label">Escrow Amount</label>
-    <div class="col-sm-3">
-
+    <label for="inputEmail3" class=" control-label">Amount of Bitcoins or Litecoins</label>
+    <div class="form-group">
+    <div class="col-sm-4">
 <select id="id_currency" name="currency" class="form-control">
 <option value="BTC">Bitcoin</option>
 <option value="LTC">Litecoin</option>
 </select>
-
-
+    </div> 
+    <div class="col-sm-8">
+      <input type="decimal" class="form-control" name="amount"  placeholder="Enter Amount" required="required">
     </div>
-
-    <div class="col-sm-6">
-      <input type="decimal" class="form-control" name="amount"  placeholder="Escrow Amount" required="required">
-    </div>
+  </div>
   </div>
   
 
 <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 control-label">Escrow Time Limit</label>
+    <div class="col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="name_verification" > Name verification by EscrowCoins.com (optional)
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="encypt_emails" > Encrypted Emails
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="encypt_emails" onclick=$('#time_limit').slideToggle();> Encrow Time Limit (optional)
+        </label>
+      </div>
+    </div>
+  </div>
+
+
+<div class="form-group" id="time_limit" style="display:none;">
     <div class="col-sm-10">
       
       <!--
@@ -88,32 +134,13 @@
 
   </div>
 
-
-
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" name="encypt_emails" > Encrypt Emails
-        </label>
-      </div>
-    </div>
-  </div>
-
-
-
-<div class="page-header">
-<h3>Conditions of escrow</h3>
 </div>
 
-<div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 control-label">Description</label>
-    <div class="col-sm-10">
-      <textarea class="form-control" name="condition_description" placeholder="something for remembering this escrow">
-        
-      </textarea>
-    </div>
-  </div>
+<div class="col-sm-offset-1 col-sm-5">
+
+
+
+
 
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
@@ -146,6 +173,7 @@
     </div>
   </div>
 
+</div>
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">

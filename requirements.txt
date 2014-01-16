@@ -1,3 +1,5 @@
+ecdsa
+PyOpenSSL
 django-bootstrap3
 django-mptt
 django-notification
