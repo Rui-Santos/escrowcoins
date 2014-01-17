@@ -44,6 +44,15 @@ class Transaction(models.Model):
         '''
         return('transaction', [ str(self.pk^0xABCDEFAB) ])
 
+    def get_status(self):
+        '''
+        get the status of the transaction
+        '''
+        if self.is_complete:
+            return "Is complete"
+        else:
+            return "In progress"
+
     def __unicode__(self):
         return self.get_invoice_number()
 

@@ -4,30 +4,36 @@
 {% block content %}
 
 
-<div class="transactions">
+<div class="transaction">
 
 
 
-<div class="row">
+
         <div class="col-xs-12 col-md-8">
 
 
-   <section>
-   <div class="page-header">
-    <h4 id="page-header">Merchandise</h4>
-    </div>
-    
-      {{transaction.condition_description}}
-    </section>
-
-
-
         <section>
-    <div class="page-header">
-    <h4 id="page-header">Terms</h4>
-    </div>
+   
 
-    <div class="row show-grid">
+   <span>Transaction id: #{{transaction.get_invoice_number}}</span><br />
+
+
+
+
+   {% if transaction.is_sender%}
+   <span>Sender: {{request.user.username}} {{transaction.sender}}</span>
+   {% else %}
+  <span>Buyer: {{request.user.username}} {{transaction.buyer}}</span>
+   {% endif %}
+
+   <hr />
+   <span>Escrow: {{transaction.amount}} {{transaction.currency}}</span>
+
+   <br />
+
+   <hr />
+   <!--
+  <div class="row show-grid">
         <div class="col-md-6 leftside">Transaction No</div>
         <div class="col-md-6"><a href="#">#{{transaction.get_invoice_number}}</a></div>
       </div>
@@ -48,7 +54,7 @@
         <div class="col-md-6 leftside">Inspection period</div>
         <div class="col-md-6">{{transaction.expires}}</div>
       </div>
-
+-->
 
     </section>
 
@@ -62,60 +68,53 @@
 
         </div>
 
-<!--
 
-        <div class="col-xs-6 col-md-4">
-          <div class="page-header">
-      <h4 id="page-header">History</h4>
-    </div>  
+
+
+
+
+ <div class="col-xs-12 col-md-4">
+
+
+
+        <section>
+    <div class="page-header">
+    <h4 id="page-header">STATUS</h4>
+    </div>
+
+
+<ol>
+  <li>Sender an Receiver</li>
+  <li>Sender an Receiver</li>
+  <li>Sender an Receiver</li>
+  <li>Sender an Receiver</li>
+  <li>Sender an Receiver</li>
+  <li>Sender an Receiver</li>
+</ol>
+
+
+
+
+
+    </section>
+
+
+<!--
+  <section id="complaint">
+    <div class="page-header">
+    <h5 id="page-header"><a href="{{t.get_unique_url }}complaint">File Complaint</a></h5>
+    </div>
+    </section>
+-->
 
         </div>
-   -->   
 
-      </div>
+<section style="width:100%;display:block;overflow:hidden;">
+<div class="page-header">
+    <h4 id="page-header">History</h4>
+    </div>
+</section>
 
-
-<!--
-<table class="table">
-              <thead>
-                <tr>
-                  <th>#No</th>
-                  <th>My Role</th>
-                  <th>Buyer Email</th>
-                  <th>Seller Email</th>
-                  <th>Amount</th>
-                  <th>Description</th>
-                  <th>Document Required</th>
-                </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                  <td><a href="{{transaction.get_unique_url}}">{{transaction.get_invoice_number}}</a></td>
-                  <td>
-                  {%if transaction.is_sender%}
-                  Sender
-                  {% else %}
-                  Buyer
-                  {%endif%}
-                  </td>
-                  <td>{{transaction.buyer}}</td>
-                  <td>{{transaction.sender}}</td>
-                  <td>{{transaction.amount}}</td>
-                  <td>{{transaction.condition_description}}</td>
-                  <td>
-                  {%if transaction.condition_document%}
-                  Yes
-                  {% else %}
-                  No
-                  {%endif%}
-                  </td>
-                </tr>
-
-               
-
-              </tbody>
-            </table>
--->
   </div>
 
 

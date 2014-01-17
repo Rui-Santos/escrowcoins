@@ -38,10 +38,13 @@
 
         <ul class="nav navbar-nav navbar-left" style="margin-left:40px;">
       
+      <!--
       <li class="active" >
           <a href="{{BASE_URL}}">Start Escrow Now</a>
         </li>
+      -->
         </ul>
+      
 
       <ul class="nav navbar-nav navbar-right">
     
@@ -49,17 +52,20 @@
           <a href="{{BASE_URL}}transactions">My Transactions</a>
         </li>
 
+         <li>
+          <a href="{{BASE_URL}}">New Transaction</a>
+        </li>
 
+        <!--
          <li>
           <a href="{{BASE_URL}}complaint">File complaint</a>
         </li>
+        -->
 
            <li>
-          <a href="{{BASE_URL}}accounts/{{request.user.username}}">Account</a>
+          <a href="{{BASE_URL}}accounts/{{request.user.username}}">My Profile</a>
         </li>
-        <li>
-          <a href="{{BASE_URL}}accounts/signout">Signout</a>
-        </li>
+
         </ul>
         {% else %}
          <ul class="nav navbar-nav navbar-right">
@@ -74,6 +80,57 @@
       {% endif %}
 
     </nav>
+
+{% if LOGGED_IN %}
+
+<style type="text/css">
+  .landingpage_wrapper {
+margin-top: 113px;
+}
+</style>
+
+<nav class="collapse navbar-collapse bs-navbar-collapse second_navbar" role="navigation">
+  <ul class="nav navbar-nav navbar-left" style="margin-left:40px;">
+      
+   
+      <li><a href="#">{{secondbar_notice}}</a></li>
+      
+
+        </ul>
+      
+
+      <ul class="nav navbar-nav navbar-right">
+    
+          <li>
+          <a href="#">Logged in as: {{request.user.username}} {{request.user.email}}</a>
+        </li>
+
+        <!--
+        <li>
+          <a href="{{BASE_URL}}transactions">My Transactions</a>
+        </li>
+
+         <li>
+          <a href="{{BASE_URL}}">New Transaction</a>
+        </li>
+
+         <li>
+          <a href="{{BASE_URL}}complaint">File complaint</a>
+        </li>
+
+           <li>
+          <a href="{{BASE_URL}}accounts/{{request.user.username}}">My Profile</a>
+        </li>
+        -->
+
+        <li>
+          <a href="{{BASE_URL}}accounts/signout">Sign Out</a>
+        </li>
+        </ul>
+</nav>
+{% endif %}
+  
+
   </div>
 </header>
 
@@ -124,7 +181,7 @@
 
       $(document).ready(function(){   
 
-       
+       $("[rel=tooltip]").tooltip();
         $("#nav ul li a[href^='#']").on('click', function(e) {
           // prevent default anchor click behavior
           e.preventDefault();

@@ -95,7 +95,7 @@ def list_transactions(request):
     if not request.user.is_authenticated:
         return HttpResponseNotFound('<h1>No Page Here</h1>')
     transactions_list = Transaction.objects.all().filter(user=request.user.pk) 
-    paginator = Paginator(transactions_list , 5)
+    paginator = Paginator(transactions_list , 15)
     page = request.GET.get('page')
     try:
         transactions = paginator.page(page)
@@ -120,8 +120,11 @@ def list_transaction(request,name):
     '''
     id = int(name)^0xABCDEFAB
     transactions = get_object_or_404(Transaction.objects.filter(id=id),id=id)
+    secondbar_notice = 'Buyer Escrow'
+    if transactions.is_sender:
+        secondbar_notice = 'Sender Escrow'
     return render_view(request,'transaction.html',
-        {'transaction':transactions},
+        {'transaction':transactions,'secondbar_notice':secondbar_notice},
         )
 
 
