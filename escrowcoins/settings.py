@@ -16,17 +16,17 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-BASE_URL = 'http://beta420.escrowcoins.com/'
+BASE_URL = ''
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__),os.pardir))+'/'
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'escrowcoins',                      # Or path to database file if using sqlite3.
+        'NAME': '',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': 'escrowcoins',
-        'PASSWORD': 'aC1yc2EAAAADAQ',
-        'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
 }
@@ -218,9 +218,9 @@ EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
 
 
 #using sandbox account here , change later
-MAILGUN_ACCESS_KEY = 'key-2muxr74n4l3gzhcsm243u2ubts9a88b8'
-MAILGUN_SERVER_NAME = 'sandbox6107.mailgun.org'
-MAILGUN_ACCESS_LINK = 'https://api.mailgun.net/v2/sandbox6107.mailgun.org/messages'
+MAILGUN_ACCESS_KEY = ''
+MAILGUN_SERVER_NAME = ''
+MAILGUN_ACCESS_LINK = ''
 
 
 ESCROW_SENDER = "escrowcoins@escrowcoins.com"
@@ -246,5 +246,5 @@ USERENA_ACTIVATION_LOGIN  =False
 
 
 #Google Analytics
-GOOGLE_ANALYTICS_PROPERTY_ID = 'UA-14845987-3'
-GOOGLE_ANALYTICS_DOMAIN = 'mydomain.com'
+GOOGLE_ANALYTICS_PROPERTY_ID = ''
+GOOGLE_ANALYTICS_DOMAIN = ''

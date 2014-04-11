@@ -1,3 +1,8 @@
+EscrowCoins
+=============================
+Secure Bitcoin and LiteCoin Escrow Service Written in Django
+Builtin MailGun and Analytics Support
+
 Requirements for Webescrow app
 ==============================
 
@@ -15,6 +20,6 @@ and a SMTP server properly configured.
 
 Setup
 =====
-Add `local_settings.py` to hold your local
+Add `local_settings.py` to hold your local settings
 configurations. Make sure the program `ssss-split` is found at
 the place specified by `ssss_split` at `settings.py`.
